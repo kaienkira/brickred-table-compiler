@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<define>
+
+  <reader name="client" namespace="Client.Table"/>
+  <reader name="server" namespace="server.table"/>
+
+  <!-- global struct define -->
+  <struct name="ResourceItem">
+    <field name="id" type="int"/>
+    <field name="count" type="int"/>
+  </struct>
+
+  <!-- table define -->
+  <table name="TblCopy" key="id" file="copy.csv">
+    <struct name="NpcInfo">
+      <field name="npc_id" type="int"/>
+      <field name="pos_x" type="int"/>
+      <field name="pos_y" type="int"/>
+    </struct>
+    <col name="id" type="int"/>
+    <col name="name" type="string"/>
+    <col name="description" type="string" readby="client"/>
+    <col name="npc_info" type="list{NpcInfo}"/>
+    <col name="consume" type="list{ResourceItem}"/>
+    <col name="reward" type="list{ResourceItem}" readby="server"/>
+  </table>
+
+  <table name="TblEffect" key="id" file="effect.csv" readby="client">
+    <col name="id" type="int"/>
+    <col name="name" type="string"/>
+    <col name="resource_path" type="string"/>
+  </table>
+
+  <table name="TblItem" key="id" file="item.csv">
+    <col name="id" type="int"/>
+    <col name="name" type="string"/>
+    <col name="description" type="string" readby="client"/>
+  </table>
+
+  <table name="TblMatchmaking" key="id" file="matchmaking.csv" readby="server">
+    <col name="id" type="int"/>
+    <col name="type" type="int"/>
+    <col name="copy_id" type="int"/>
+    <col name="min_count" type="int"/>
+    <col name="max_count" type="int"/>
+  </table>
+
+  <table name="TblNpc" key="id" file="npc.csv">
+    <col name="id" type="int"/>
+    <col name="name" type="string"/>
+    <col name="description" type="string" readby="client"/>
+    <col name="skills" type="list{int}"/>
+  </table>
+
+  <table name="TblSkillLevel" setkey="skill_id" file="skill_level.csv">
+    <struct name="SkillDamageParam">
+      <field name="p1" type="int"/>
+      <field name="p2" type="int"/>
+      <field name="p3" type="int"/>
+    </struct>
+    <struct name="SkillRangeParam">
+      <field name="p1" type="int"/>
+      <field name="p2" type="int"/>
+    </struct>
+    <col name="skill_id" type="int"/>
+    <col name="skill_name" type="string"/>
+    <col name="skill_level" type="int"/>
+    <col name="damage" type="int"/>
+    <col name="damage_param" type="SkillDamageParam"/>
+    <col name="range_param" type="SkillRangeParam"/>
+  </table>
+
+</define>

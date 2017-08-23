@@ -1,2 +1,2 @@
 # brickred-table-compiler
-Brickred Table Compiler
+Brickred Studio table config tool
