@@ -140,6 +140,59 @@ namespace Brickred.Table.Compiler
                 CalculateTableKeyColumnIndex(tableDef);
             }
 
+            // collect used structs
+            Dictionary<TableDescriptor.StructDef, bool> usedStructs =
+                new Dictionary<TableDescriptor.StructDef, bool>();
+            for (int i = 0; i < this.descriptor.Tables.Count; ++i) {
+                TableDescriptor.TableDef tableDef =
+                    this.descriptor.Tables[i];
+
+                for (int j = 0; j < tableDef.Columns.Count; ++j) {
+                    TableDescriptor.TableDef.ColumnDef columnDef =
+                        tableDef.Columns[j];
+
+                    if (columnDef.RefStructDef != null) {
+                        usedStructs[columnDef.RefStructDef] = true;
+                    }
+                }
+            }
+
+            // remove unused global structs
+            List<TableDescriptor.StructDef> filteredGlobalStructs =
+                new List<TableDescriptor.StructDef>();
+            for (int i = 0; i < this.descriptor.GlobalStructs.Count; ++i) {
+                TableDescriptor.StructDef structDef =
+                    this.descriptor.GlobalStructs[i];
+
+                if (usedStructs.ContainsKey(structDef)) {
+                    filteredGlobalStructs.Add(structDef);
+                } else {
+                    this.descriptor.GlobalStructNameIndex.Remove(
+                        structDef.Name);
+                }
+            }
+            this.descriptor.GlobalStructs = filteredGlobalStructs;
+
+            // remove unused local structs
+            for (int i = 0; i < this.descriptor.Tables.Count; ++i) {
+                TableDescriptor.TableDef tableDef =
+                    this.descriptor.Tables[i];
+
+                List<TableDescriptor.StructDef> filteredLocalStructs =
+                    new List<TableDescriptor.StructDef>();
+                for (int j = 0; j < tableDef.LocalStructs.Count; ++j) {
+                    TableDescriptor.StructDef structDef =
+                        tableDef.LocalStructs[j];
+
+                    if (usedStructs.ContainsKey(structDef)) {
+                        filteredLocalStructs.Add(structDef);
+                    } else {
+                        tableDef.LocalStructNameIndex.Remove(structDef.Name);
+                    }
+                }
+                tableDef.LocalStructs = filteredLocalStructs;
+            }
+
             return true;
         }
 
