@@ -16,6 +16,7 @@ include mak/main.mak
 
 install:
 	@mkdir -p "$(BRICKRED_INSTALL_PREFIX)"/include/brickred/table
-	@cp src/brickred/table/*.h "$(BRICKRED_INSTALL_PREFIX)"/include/brickred/table
+	@cp src/brickred/table/*.h \
+		"$(BRICKRED_INSTALL_PREFIX)"/include/brickred/table
 	@mkdir -p "$(BRICKRED_INSTALL_PREFIX)"/lib
 	@cp "$(FINAL_TARGET)" "$(BRICKRED_INSTALL_PREFIX)"/lib
