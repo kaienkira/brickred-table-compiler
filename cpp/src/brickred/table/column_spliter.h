@@ -1,7 +1,7 @@
 #ifndef BRICKRED_TABLE_COLUMN_SPLITER_H
 #define BRICKRED_TABLE_COLUMN_SPLITER_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 
 namespace brickred {
