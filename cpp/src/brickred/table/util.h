@@ -7,9 +7,7 @@
 
 #include <brickred/table/column_spliter.h>
 
-namespace brickred {
-namespace table {
-namespace util {
+namespace brickred::table::util {
 
 std::string error(const char *format, ...);
 
@@ -38,8 +36,6 @@ bool readColumnStructList(const std::string &col, std::vector<T> *ret)
     return true;
 }
 
-} // namespace util
-} // namespace table
-} // namespace brickred
+} // namespace brickred::table::util
 
 #endif

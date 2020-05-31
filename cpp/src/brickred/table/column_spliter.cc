@@ -3,8 +3,7 @@
 #include <cstddef>
 #include <cstdlib>
 
-namespace brickred {
-namespace table {
+namespace brickred::table {
 
 ColumnSpliter::ColumnSpliter(const std::string &text, char delimiter) :
     text_(text), delimiter_(delimiter), read_index_(0)
@@ -17,14 +16,14 @@ ColumnSpliter::~ColumnSpliter()
 
 bool ColumnSpliter::nextInt(int32_t *value)
 {
-    if (value != NULL) {
+    if (value != nullptr) {
         std::string ret;
         if (nextString(&ret) == false) {
             return false;
         }
         *value = ::atoi(ret.c_str());
     } else {
-        if (nextString(NULL) == false) {
+        if (nextString(nullptr) == false) {
             return false;
         }
     }
@@ -37,7 +36,7 @@ bool ColumnSpliter::nextString(std::string *value)
     if (read_index_ > text_.size()) {
         return false;
     } else if (read_index_ == text_.size()) {
-        if (value != NULL) {
+        if (value != nullptr) {
             *value = "";
         }
         read_index_ += 1;
@@ -48,7 +47,7 @@ bool ColumnSpliter::nextString(std::string *value)
         char c = text_[i];
 
         if (c == delimiter_) {
-            if (value != NULL) {
+            if (value != nullptr) {
                 *value = std::string(&text_[read_index_],
                     i - read_index_);
             }
@@ -58,7 +57,7 @@ bool ColumnSpliter::nextString(std::string *value)
     }
 
     if (read_index_ < text_.size()) {
-        if (value != NULL) {
+        if (value != nullptr) {
             *value = std::string(&text_[read_index_],
                 text_.size() - read_index_);
         }
@@ -69,5 +68,4 @@ bool ColumnSpliter::nextString(std::string *value)
     return false;
 }
 
-} // namespace table
-} // namespace brickred
+} // namespace brickred::table

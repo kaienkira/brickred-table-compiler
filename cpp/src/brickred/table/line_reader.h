@@ -5,12 +5,11 @@
 #include <string>
 #include <vector>
 
-namespace brickred {
-namespace table {
+namespace brickred::table {
 
 class LineReader {
 public:
-    typedef std::vector<std::string> LineBuffer;
+    using LineBuffer = std::vector<std::string>;
 
     // only save the reference of the string
     // be attention with string lifetime
@@ -36,7 +35,6 @@ private:
     LineBuffer line_buffer_;
 };
 
-} // namespace table
-} // namespace brickred
+} // namespace brickred::table
 
 #endif

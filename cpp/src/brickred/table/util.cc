@@ -3,9 +3,7 @@
 #include <cstdarg>
 #include <cstdio>
 
-namespace brickred {
-namespace table {
-namespace util {
+namespace brickred::table::util {
 
 std::string error(const char *format, ...)
 {
@@ -47,6 +45,4 @@ void readColumnStringList(
     }
 }
 
-} // namespace util
-} // namespace table
-} // namespace brickred
+} // namespace brickred::table::util

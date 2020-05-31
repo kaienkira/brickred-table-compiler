@@ -4,8 +4,7 @@
 #include <cstdint>
 #include <string>
 
-namespace brickred {
-namespace table {
+namespace brickred::table {
 
 class ColumnSpliter {
 public:
@@ -23,7 +22,6 @@ private:
     size_t read_index_;
 };
 
-} // namespace table
-} // namespace brickred
+} // namespace brickred::table
 
 #endif

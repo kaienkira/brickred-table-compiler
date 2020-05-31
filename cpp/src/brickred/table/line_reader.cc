@@ -1,8 +1,6 @@
 #include <brickred/table/line_reader.h>
 
-
-namespace brickred {
-namespace table {
+namespace brickred::table {
 
 LineReader::LineReader(const std::string &text) :
     text_(text), read_index_(0)
@@ -18,7 +16,7 @@ const LineReader::LineBuffer *LineReader::nextLine()
     line_buffer_.clear();
 
     if (read_index_ >= text_.size()) {
-        return NULL;
+        return nullptr;
     }
 
     Status::type status = Status::NORMAL;
@@ -65,7 +63,7 @@ const LineReader::LineBuffer *LineReader::nextLine()
         return &line_buffer_;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 std::string LineReader::getColumn(size_t col_start, size_t col_end)
@@ -81,5 +79,4 @@ std::string LineReader::getColumn(size_t col_start, size_t col_end)
     return std::string(&text_[col_start], col_end - col_start);
 }
 
-} // namespace table
-} // namespace brickred
+} // namespace brickred::table
