@@ -341,20 +341,13 @@ namespace Brickred.Table.Compiler
                 return;
             }
 
-            StringBuilder sbStart = new StringBuilder();
-            StringBuilder sbEnd = new StringBuilder();
+            string namespaceName =
+                string.Join("::", readerDef.NamespaceParts);
 
-            for (int i = 0; i < readerDef.NamespaceParts.Count; ++i) {
-                string str = readerDef.NamespaceParts[i];
-
-                sbStart.AppendFormat("namespace {0} {{{1}",
-                    str, this.newLineStr);
-                sbEnd.AppendFormat("}} // namespace {0}{1}",
-                    str, this.newLineStr);
-            }
-
-            start = sbStart.ToString();
-            end = sbEnd.ToString();
+            start = string.Format("namespace {0} {{{1}",
+                namespaceName, this.newLineStr);
+            end = string.Format("}} // namespace {0}{1}",
+                namespaceName, this.newLineStr);
         }
 
         private void GetHeaderFileStructDecl(
@@ -596,7 +589,7 @@ namespace Brickred.Table.Compiler
                 StringBuilder sb = new StringBuilder();
 
                 if (useStdIntH) {
-                    sb.AppendFormat("#include <stdint.h>{0}",
+                    sb.AppendFormat("#include <cstdint>{0}",
                         this.newLineStr);
                 }
 
@@ -730,7 +723,7 @@ namespace Brickred.Table.Compiler
                 StringBuilder sb = new StringBuilder();
 
                 if (useStdIntH) {
-                    sb.AppendFormat("#include <stdint.h>{0}",
+                    sb.AppendFormat("#include <cstdint>{0}",
                         this.newLineStr);
                 }
                 if (useMapH) {
@@ -866,13 +859,13 @@ namespace Brickred.Table.Compiler
             if (tableDef.TableKeyType == TableKeyType.SingleKey) {
                 sb.Append(this.newLineStr);
                 sb.AppendFormat(
-                    "{0}typedef std::map<{1}, Row> Rows;{2}",
+                    "{0}using Rows = std::map<{1}, Row>;{2}",
                     indent, GetCppType(tableDef.TableKey), this.newLineStr);
             } else if (tableDef.TableKeyType == TableKeyType.SetKey) {
                 sb.Append(this.newLineStr);
                 sb.AppendFormat(
-                    "{0}typedef std::vector<Row> RowSet;{1}" +
-                    "{0}typedef std::map<{2}, RowSet> RowSets;{1}",
+                    "{0}using RowSet = std::vector<Row>;{1}" +
+                    "{0}using RowSets = std::map<{2}, RowSet>;{1}",
                     indent, this.newLineStr, GetCppType(tableDef.TableKey));
             }
 
