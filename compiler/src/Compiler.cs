@@ -49,8 +49,7 @@ public sealed class App
 
         // check command line options
         if (optDefineFilePath == "" ||
-            optLanguage == "" ||
-            optReader == "") {
+            optLanguage == "") {
             PrintUsage();
             return 1;
         }
@@ -75,8 +74,10 @@ public sealed class App
             if (parser.Parse(optDefineFilePath) == false) {
                 return 1;
             }
-            if (parser.FilterByReader(optReader) == false) {
-                return 1;
+            if (optReader != "") {
+                if (parser.FilterByReader(optReader) == false) {
+                    return 1;
+                }
             }
 
             BaseCodeGenerator generator = null;
