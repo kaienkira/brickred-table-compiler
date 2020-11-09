@@ -526,7 +526,7 @@ namespace Brickred.Table.Compiler
                 }
 
                 sb.AppendFormat(
-                    "{0}if (s.nextString(NULL)) {{{1}" +
+                    "{0}if (s.nextString(nullptr)) {{{1}" +
                     "{0}    return false;{1}" +
                     "{0}}}{1}" +
                     "{1}" +
@@ -1130,7 +1130,7 @@ namespace Brickred.Table.Compiler
                 "{{{1}" +
                 "    brickred::table::LineReader r(text);{1}" +
                 "    const brickred::table::LineReader::LineBuffer " +
-                "*line_buffer = NULL;{1}" +
+                "*line_buffer = nullptr;{1}" +
                 "    size_t column_count_req = {2};{1}" +
                 "{1}",
                 tableDef.Name, this.newLineStr, tableDef.Columns.Count);
@@ -1174,7 +1174,7 @@ namespace Brickred.Table.Compiler
             output = string.Format(
                 "{0}// read comment line{1}" +
                 "{0}line_buffer = r.nextLine();{1}" +
-                "{0}if (line_buffer == NULL) {{{1}" +
+                "{0}if (line_buffer == nullptr) {{{1}" +
                 "{0}    *error_info = \"comment line is required\";{1}" +
                 "{0}    return false;{1}" +
                 "{0}}}{1}" +
@@ -1198,7 +1198,7 @@ namespace Brickred.Table.Compiler
             string start = string.Format(
                 "{0}// read name line{1}" +
                 "{0}line_buffer = r.nextLine();{1}" +
-                "{0}if (line_buffer == NULL) {{{1}" +
+                "{0}if (line_buffer == nullptr) {{{1}" +
                 "{0}    *error_info = \"name line is required\";{1}" +
                 "{0}    return false;{1}" +
                 "{0}}}{1}" +
@@ -1267,7 +1267,7 @@ namespace Brickred.Table.Compiler
                 "{0}rows_.clear();{1}" +
                 "{0}for (;;) {{{1}" +
                 "{0}    line_buffer = r.nextLine();{1}" +
-                "{0}    if (line_buffer == NULL) {{{1}" +
+                "{0}    if (line_buffer == nullptr) {{{1}" +
                 "{0}        break;{1}" +
                 "{0}    }}{1}" +
                 "{0}    if (line_buffer->size() != column_count_req) {{{1}" +
@@ -1290,7 +1290,7 @@ namespace Brickred.Table.Compiler
                 "{1}" +
                 "{4}" +
                 "{1}" +
-                "{0}    if (getRow(row.{3}) != NULL) {{{1}" +
+                "{0}    if (getRow(row.{3}) != nullptr) {{{1}" +
                 "{0}        *error_info = brickred::table::util::error({1}" +
                 "{0}            \"line %zd key `{3}` value {5} is duplicated\", " +
                 "line_number, {6});{1}" +
@@ -1338,7 +1338,7 @@ namespace Brickred.Table.Compiler
                 "{0}row_sets_.clear();{1}" +
                 "{0}for (;;) {{{1}" +
                 "{0}    line_buffer = r.nextLine();{1}" +
-                "{0}    if (line_buffer == NULL) {{{1}" +
+                "{0}    if (line_buffer == nullptr) {{{1}" +
                 "{0}        break;{1}" +
                 "{0}    }}{1}" +
                 "{0}    if (line_buffer->size() != column_count_req) {{{1}" +
@@ -1369,7 +1369,7 @@ namespace Brickred.Table.Compiler
                 "{1}" +
                 "{0}    {7};{1}" +
                 "{0}    if (*key_str != last_key) {{{1}" +
-                "{0}        if (getRowSet(key) != NULL) {{{1}" +
+                "{0}        if (getRowSet(key) != nullptr) {{{1}" +
                 "{0}            *error_info = brickred::table::util::error({1}" +
                 "{0}                \"line %zd key `{3}` value {5} is duplicated\",{1} " +
                 "{0}                line_number, {6});{1}" +
@@ -1476,7 +1476,7 @@ namespace Brickred.Table.Compiler
                 "{{{2}" +
                 "    Rows::const_iterator iter = rows_.find(key);{2}" +
                 "    if (iter == rows_.end()) {{{2}" +
-                "        return NULL;{2}" +
+                "        return nullptr;{2}" +
                 "    }}{2}" +
                 "{2}" +
                 "    return &iter->second;{2}" +
@@ -1499,7 +1499,7 @@ namespace Brickred.Table.Compiler
                 "{{{2}" +
                 "    RowSets::const_iterator iter = row_sets_.find(key);{2}" +
                 "    if (iter == row_sets_.end()) {{{2}" +
-                "        return NULL;{2}" +
+                "        return nullptr;{2}" +
                 "    }}{2}" +
                 "{2}" +
                 "    return &iter->second;{2}" +
