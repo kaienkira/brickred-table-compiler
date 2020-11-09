@@ -277,7 +277,7 @@ namespace Brickred.Table.Compiler
         private string CamelToUnderscore(string camelName)
         {
             return Regex.Replace(camelName,
-                @"(?<=.)([A-Z])", "_$0").ToLower();
+                @"(?<=[a-z0-9])([A-Z])", "_$0").ToLower();
         }
 
         private void GetDontEditComment(out string output)
