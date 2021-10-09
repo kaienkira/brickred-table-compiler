@@ -736,6 +736,7 @@ namespace Brickred.Table.Compiler
                 "{0}        this.rowSets.Add(key, rowSet);{1}" +
                 "{0}        lastKey = keyStr;{1}" +
                 "{0}    }} else {{{1}" +
+                "{0}        row.{3} = key;{1}" +
                 "{0}        this.rowSets[key].Add(row);{1}" +
                 "{0}    }}{1}" +
                 "{1}" +

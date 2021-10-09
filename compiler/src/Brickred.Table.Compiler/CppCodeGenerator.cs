@@ -1380,6 +1380,7 @@ namespace Brickred.Table.Compiler
                 "{0}        row_sets_.insert(std::make_pair(key, row_set));{1}" +
                 "{0}        last_key = *key_str;{1}" +
                 "{0}    }} else {{{1}" +
+                "{0}        row.{3} = key;{1}" +
                 "{0}        row_sets_[key].push_back(row);{1}" +
                 "{0}    }}{1}" +
                 "{1}" +
