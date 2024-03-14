@@ -139,11 +139,11 @@ public sealed class App
         }
 
         // read input file
-        string inputFileContent;
+        string inputFileContent = null;
         try {
-            inputFileContent = File.ReadAllText(
-                Path.Combine(inputDir, tableDef.FileName),
-                Encoding.Unicode);
+            byte[] fileBin = File.ReadAllBytes(
+                Path.Combine(inputDir, tableDef.FileName));
+            inputFileContent = Encoding.UTF8.GetString(fileBin);
         } catch (Exception e) {
             Console.Error.WriteLine(string.Format(
                 "error: can not read input file `{0}`: {1}",
@@ -224,10 +224,10 @@ public sealed class App
 
         // write output file
         try {
-            File.WriteAllText(
+            byte[] fileBin = Encoding.UTF8.GetBytes(outputFileContent);
+            File.WriteAllBytes(
                 Path.Combine(outputDir, tableDef.FileName),
-                outputFileContent,
-                Encoding.Unicode);
+                fileBin);
         } catch (Exception e) {
             Console.Error.WriteLine(string.Format(
                 "error: can not write output file `{0}`: {1}",
