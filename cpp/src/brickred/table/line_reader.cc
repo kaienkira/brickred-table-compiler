@@ -68,15 +68,32 @@ const LineReader::LineBuffer *LineReader::nextLine()
 
 std::string LineReader::getColumn(size_t col_start, size_t col_end)
 {
-    // trim quote mark
     if (col_end - col_start >= 2 &&
         text_[col_start] == '"' &&
         text_[col_end - 1] == '"') {
+        // trim quote mark
         col_start += 1;
         col_end -= 1;
+        // convert double quote mark to single quote mark
+        std::string str;
+        str.reserve(col_end - col_start);
+        size_t i = col_start;
+        while (i < col_end - 1) {
+            str.push_back(text_[i]);
+            if (text_[i] == '"' &&
+                text_[i + 1] == '"') {
+                i += 2;
+            } else {
+                ++i;
+            }
+        }
+        if (i == col_end - 1) {
+            str.push_back(text_[i]);
+        }
+        return str;
+    } else {
+        return std::string(&text_[col_start], col_end - col_start);
     }
-
-    return std::string(&text_[col_start], col_end - col_start);
 }
 
 } // namespace brickred::table

@@ -77,15 +77,17 @@ namespace Brickred.Table
 
         private string GetColumn(int colStart, int colEnd)
         {
-            // trim quote mark
             if (colEnd - colStart >= 2 &&
                 this.text[colStart] == '"' &&
                 this.text[colEnd - 1] == '"') {
+                // trim quote mark
                 colStart += 1;
                 colEnd -= 1;
+                // convert double quote mark to single quote mark
+                return this.text.Substring(colStart, colEnd - colStart).Replace("\"\"", "\"");
+            } else {
+                return this.text.Substring(colStart, colEnd - colStart);
             }
-
-            return this.text.Substring(colStart, colEnd - colStart);
         }
     }
 }
