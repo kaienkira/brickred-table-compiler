@@ -140,15 +140,38 @@ public sealed class App
 
         // read input file
         string inputFileContent = null;
-        try {
-            byte[] fileBin = File.ReadAllBytes(
-                Path.Combine(inputDir, tableDef.FileName));
-            inputFileContent = Encoding.UTF8.GetString(fileBin);
-        } catch (Exception e) {
-            Console.Error.WriteLine(string.Format(
-                "error: can not read input file `{0}`: {1}",
-                tableDef.FileName, e.Message));
-            return false;
+        {
+            FileStream fs = null;
+            try {
+                fs = new FileStream(
+                    Path.Combine(inputDir, tableDef.FileName),
+                    FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                long fileLength = fs.Length;
+                if (fileLength > Int32.MaxValue) {
+                    throw new IOException("file too long");
+                }
+                int start = 0;
+                int left = (int)fileLength;
+                byte[] fileBin = new byte[fileLength];
+                while (left > 0) {
+                    int n = fs.Read(fileBin, start, left);
+                    if (n <= 0) {
+                        break;
+                    }
+                    start += n;
+                    left -= n;
+                }
+                inputFileContent = Encoding.UTF8.GetString(fileBin);
+            } catch (Exception e) {
+                Console.Error.WriteLine(string.Format(
+                    "error: can not read input file `{0}`: {1}",
+                    tableDef.FileName, e.Message));
+                return false;
+            } finally {
+                if (fs != null) {
+                    fs.Dispose();
+                }
+            }
         }
 
         // split lines
