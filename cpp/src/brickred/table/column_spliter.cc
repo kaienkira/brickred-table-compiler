@@ -1,6 +1,5 @@
 #include <brickred/table/column_spliter.h>
 
-#include <cstddef>
 #include <cstdlib>
 
 namespace brickred::table {
