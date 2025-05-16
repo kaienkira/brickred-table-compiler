@@ -7,7 +7,7 @@
 
 namespace brickred::table {
 
-class LineReader {
+class LineReader final {
 public:
     using LineBuffer = std::vector<std::string>;
 

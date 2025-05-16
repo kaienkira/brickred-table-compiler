@@ -6,7 +6,7 @@
 
 namespace brickred::table {
 
-class ColumnSpliter {
+class ColumnSpliter final {
 public:
     // only save the reference of the string
     // be attention with string lifetime
