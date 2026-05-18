@@ -25,5 +25,7 @@ if [ $? -ne 0 ]; then exit 1; fi
 # cpp test
 mono brickred-table-compiler.exe -f table.xml -l cpp -r server
 if [ $? -ne 0 ]; then exit 1; fi
+
+# csharp test
 mono brickred-table-compiler.exe -f table.xml -l csharp -r client
 if [ $? -ne 0 ]; then exit 1; fi
